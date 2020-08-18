@@ -9,13 +9,13 @@ exports.create = (req, res) => {
     return;
   }
 
-  // Create a Tutorial
+// Create a Tutorial
   const tutorial = new Tutorial({
     name: req.body.name,
     date: req.body.date,
     time: req.body.time,
-    createdAt: req.body.createdAt
-    //published: req.body.published ? req.body.published : false
+    createdAt: req.body.createdAt,
+    published: req.body.published ? req.body.published : false
   });
 
   // Save Tutorial in the database
@@ -95,7 +95,7 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Tutorial.findByIdAndUpdate (id, { useFindAndModify: false })
+  Tutorial.findByIdAndRemove(id, { useFindAndModify: false })
     .then(data => {
       if (!data) {
         res.status(404).send({
